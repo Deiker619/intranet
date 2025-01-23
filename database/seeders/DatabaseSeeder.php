@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\mysql\Producto;
 use App\Models\User;
+use Database\Seeders\mysql\ProductSeeder;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,7 +15,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        /* User::factory(10)->create(); */
+      
 
         User::factory()->create([
             'name' => 'Test User',
