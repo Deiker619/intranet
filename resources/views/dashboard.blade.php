@@ -9,8 +9,7 @@
 
     <div class="py-6">
         <div class=" sm:px-6 lg:px-8">
-
-
+            
             @livewire('mysql.form-recibo-pago')
 
 

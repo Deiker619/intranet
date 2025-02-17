@@ -11,20 +11,23 @@ class FormReciboPago extends Component
     public $show;
     protected $sigespServices;
     public $fechasper;
-    public function boot(sigespServices $sigespServices){
-        $this->sigespServices = $sigespServices;
 
+    public function boot(sigespServices $sigespServices)
+    {
+        $this->sigespServices = $sigespServices;
     }
 
     public function render()
     {
         $periodos = $this->sigespServices->periodos();
-        
+
         return view('livewire.mysql.form-recibo-pago', compact('periodos'));
     }
-    public function setPeriodo($date){
-       $this->fechasper = $this->sigespServices->periodos_por_fecdesper($date);
-       $this->fechasper = $this->fechasper[0]->fechasper;
+    public function setPeriodo($date)
+    {
+        if (!$date) return $this->fechasper = '';
+        $this->fechasper = $this->sigespServices->periodos_por_fecdesper($date);
+        $this->fechasper = $this->fechasper[0]->fechasper;
     }
 
     public function dataSigesp()

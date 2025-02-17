@@ -7,11 +7,6 @@ use Illuminate\Support\Facades\DB;
 class sigespServices
 {
 
-    public function prueba()
-    {
-        dd('hola');
-    }
-
     public function recibo_pago_sigesp()
     {
         $recibo_pago = DB::connection('pgsql')->table('sno_personal')
@@ -85,10 +80,10 @@ class sigespServices
             )
             ->where('sno_hsalida.codemp', '0001')
             ->whereNotIn('sno_hsalida.tipsal', ['P2', 'V4', 'W4'])
-            ->where('sno_hperiodo.fecdesper', 'LIKE', '2023-01-01%')
-            ->where('sno_hperiodo.fechasper', 'LIKE', '2023-01-15%')
-            ->where('sno_hpersonalnomina.codper', '0009578434')
-            ->whereBetween('sno_hpersonalnomina.codnom', ['0400', '0400'])
+            ->where('sno_hperiodo.fecdesper', 'LIKE', '2025-01-01%') //Se necesita
+            ->where('sno_hperiodo.fechasper', 'LIKE', '2025-01-15%') //Se necesita
+            ->where('sno_hpersonalnomina.codper', '0030165406') //Se necesita
+            ->whereBetween('sno_hpersonalnomina.codnom', ['0401', '0401'])
             ->where('sno_hsalida.valsal', '<>', 0)
             ->whereIn('sno_hsalida.tipsal', ['A', 'V1', 'W1', 'D', 'V2', 'W2', 'P1', 'V3', 'W3'])
             ->groupBy(
@@ -133,5 +128,47 @@ class sigespServices
             ->where('fecdesper', $fecdesper)
             ->get();
         return $periodos;
+    }
+
+    /* 
+        ** Constantes de la nomina
+    */
+    public function all_constantes($codnom = '0400')
+    {
+        $constantes = DB::connection('pgsql')->table('sno_constante')
+            ->select('nomcon', 'codcons')->where('codnom', $codnom)
+            ->get();
+        return $constantes;
+    }
+    public function get_only_constante($codcons = '0000000001')
+    {
+        $constante = DB::connection('pgsql')->table('sno_constante')
+            ->select('nomcon', 'codcons')->where('codnom', '0400')->where('codcons', $codcons)
+            ->get();
+        return $constante;
+    }
+
+    /* 
+        ** Conceptos 
+    
+    */
+    public function all_conceptos($codnom = '0400')
+    {
+        $conceptos = DB::connection('pgsql')->table('sno_concepto')
+            ->select('codconc', 'nomcon', 'titcon', 'forcon')->where('codnom', $codnom)
+            ->get();
+        return $conceptos;
+    }
+    public function get_conceptos_personal($codnom = '0401', $codperi = '001', $codper = '0030165406')
+    {
+        $conceptos = DB::connection('pgsql')->table('sno_hconceptopersonal')
+            ->select('codnom', 'codperi', 'codper', 'codconc')->where([
+                ['codnom', $codnom],
+                ['codperi', $codperi],
+                ['codper', $codper]
+            ])
+            ->orderBy('codconc')
+            ->get();
+        return $conceptos;
     }
 }
