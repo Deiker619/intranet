@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 class sigespServices
 {
 
-    public function recibo_pago_sigesp()
+    public function recibo_pago_sigesp($fechadesper, $fechasper)
     {
         $recibo_pago = DB::connection('pgsql')->table('sno_personal')
 
@@ -80,8 +80,8 @@ class sigespServices
             )
             ->where('sno_hsalida.codemp', '0001')
             ->whereNotIn('sno_hsalida.tipsal', ['P2', 'V4', 'W4'])
-            ->where('sno_hperiodo.fecdesper', 'LIKE', '2025-01-01%') //Se necesita
-            ->where('sno_hperiodo.fechasper', 'LIKE', '2025-01-15%') //Se necesita
+            ->where('sno_hperiodo.fecdesper', 'LIKE', $fechadesper.'%') //Se necesita
+            ->where('sno_hperiodo.fechasper', 'LIKE', $fechasper.'%') //Se necesita
             ->where('sno_hpersonalnomina.codper', '0030165406') //Se necesita
             ->whereBetween('sno_hpersonalnomina.codnom', ['0401', '0401'])
             ->where('sno_hsalida.valsal', '<>', 0)

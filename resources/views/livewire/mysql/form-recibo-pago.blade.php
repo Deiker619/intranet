@@ -11,7 +11,7 @@
             </div> --}}
 
 
-        <div class="grid grid-cols-2 gap-2">
+        <div class="grid md:grid-cols-2 gap-2 sm:grid-cols-1">
             <div class="mb-5">
                 <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Desde</label>
 

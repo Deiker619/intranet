@@ -11,6 +11,7 @@ class FormReciboPago extends Component
     public $show;
     protected $sigespServices;
     public $fechasper;
+    public $fechadesper;
 
     public function boot(sigespServices $sigespServices)
     {
@@ -25,6 +26,7 @@ class FormReciboPago extends Component
     }
     public function setPeriodo($date)
     {
+        $this->fechadesper = $date;
         if (!$date) return $this->fechasper = '';
         $this->fechasper = $this->sigespServices->periodos_por_fecdesper($date);
         $this->fechasper = $this->fechasper[0]->fechasper;
@@ -32,7 +34,7 @@ class FormReciboPago extends Component
 
     public function dataSigesp()
     {
-        $recibo_pago = $this->sigespServices->recibo_pago_sigesp();
+        $recibo_pago = $this->sigespServices->recibo_pago_sigesp($this->fechadesper, $this->fechasper);
         $this->dispatch('post-created', recibo_pago: $recibo_pago);
     }
 }
