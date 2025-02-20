@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 class sigespServices
 {
 
-    public function recibo_pago_sigesp($fechadesper, $fechasper)
+    public function recibo_pago_sigesp($fechadesper, $fechasper, $codper)
     {
         $recibo_pago = DB::connection('pgsql')->table('sno_personal')
 
@@ -80,10 +80,10 @@ class sigespServices
             )
             ->where('sno_hsalida.codemp', '0001')
             ->whereNotIn('sno_hsalida.tipsal', ['P2', 'V4', 'W4'])
-            ->where('sno_hperiodo.fecdesper', 'LIKE', $fechadesper.'%') //Se necesita
-            ->where('sno_hperiodo.fechasper', 'LIKE', $fechasper.'%') //Se necesita
-            ->where('sno_hpersonalnomina.codper', '0030165406') //Se necesita
-            ->whereBetween('sno_hpersonalnomina.codnom', ['0401', '0401'])
+            ->where('sno_hperiodo.fecdesper', 'LIKE', $fechadesper . '%') //Se necesita
+            ->where('sno_hperiodo.fechasper', 'LIKE', $fechasper . '%') //Se necesita
+            ->where('sno_hpersonalnomina.codper', $codper) //Se necesita
+            ->whereIn('sno_hpersonalnomina.codnom', ['0401', '0400', '0402'])
             ->where('sno_hsalida.valsal', '<>', 0)
             ->whereIn('sno_hsalida.tipsal', ['A', 'V1', 'W1', 'D', 'V2', 'W2', 'P1', 'V3', 'W3'])
             ->groupBy(
@@ -168,6 +168,21 @@ class sigespServices
                 ['codper', $codper]
             ])
             ->orderBy('codconc')
+            ->get();
+        return $conceptos;
+    }
+    public function all_historico_conceptos_personal()
+    {
+        $conceptos = DB::connection('pgsql')->table('sno_hconceptopersonal')
+            ->select('sno_hconceptopersonal.codper', 'sno_hconceptopersonal.codconc', 'sno_hconcepto.nomcon','sno_hconceptopersonal.acuemp')
+            ->where([['sno_hconceptopersonal.codper', '0030165406'],
+                     ['sno_hconceptopersonal.codnom', '0401'],
+                      ['sno_hconceptopersonal.codperi', '015']])
+            ->join('sno_hconcepto', function ($join) {
+                    $join->on('sno_hconceptopersonal.codconc', '=', 'sno_hconcepto.codconc');
+                    $join->on('sno_hconceptopersonal.codnom', '=', 'sno_hconcepto.codnom');
+                    $join->on('sno_hconceptopersonal.codperi', '=', 'sno_hconcepto.codperi');
+                    })
             ->get();
         return $conceptos;
     }

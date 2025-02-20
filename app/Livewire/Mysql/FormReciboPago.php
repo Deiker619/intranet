@@ -5,6 +5,7 @@ namespace App\Livewire\Mysql;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use App\Services\sigespServices;
+use Illuminate\Support\Facades\Auth;
 
 class FormReciboPago extends Component
 {
@@ -34,7 +35,7 @@ class FormReciboPago extends Component
 
     public function dataSigesp()
     {
-        $recibo_pago = $this->sigespServices->recibo_pago_sigesp($this->fechadesper, $this->fechasper);
+        $recibo_pago = $this->sigespServices->recibo_pago_sigesp($this->fechadesper, $this->fechasper, Auth::user()->codper);
         $this->dispatch('post-created', recibo_pago: $recibo_pago);
     }
 }

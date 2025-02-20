@@ -14,12 +14,21 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
+            $table->string('codemp'); // Este es el ID de la empresa
+            $table->string('codper'); // Código del perfil
+            $table->string('cedper'); // Cédula del perfil
+            $table->string('apeper'); // Apellido del perfil
+            $table->date('fecnacper'); // Fecha de nacimiento del perfil
+            $table->date('fecingadmpubper'); // Fecha de ingreso administrativo público
+            $table->date('fecingper'); // Fecha de ingreso al perfil
+            $table->string('telmovper')->nullable(); // Teléfono móvil (puede ser nulo)
+            $table->enum('sexper', ['M', 'F'])->nullable(); // Sexo del perfil, puede ser M o F
             $table->timestamps();
         });
 

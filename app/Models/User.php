@@ -29,6 +29,15 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'codemp',                // ID de la empresa
+        'codper',                // Código del perfil
+        'cedper',                // Cédula del perfil
+        'apeper',                // Apellido del perfil
+        'fecnacper',             // Fecha de nacimiento del perfil
+        'fecingadmpubper',      // Fecha de ingreso administrativo público
+        'fecingper',            // Fecha de ingreso al perfil
+        'telmovper',            // Teléfono móvil (puede ser nulo)
+        'sexper',
     ];
 
     /**

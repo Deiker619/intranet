@@ -19,7 +19,7 @@ class Modal extends Component
     }
 
     public function prueba(){
-       dd( $this->sigespServices->all_conceptos());
+       dd( $this->sigespServices->all_historico_conceptos_personal());
     }
     public function render()
     {
