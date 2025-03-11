@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\constancia\constanciapdf;
+use App\Livewire\Constancia\ConstanciaShow;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -14,4 +16,7 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::get('/dashboard/constancia', [ConstanciaShow::class, 'render'])->name('constancia');
+    route::get('/dashboard/constanciaGenerate', [constanciapdf::class, 'generate_constancia'])->name('generate_constancia');
 });
