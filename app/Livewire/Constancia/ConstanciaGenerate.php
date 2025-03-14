@@ -13,7 +13,7 @@ class ConstanciaGenerate extends Component
         return view('livewire.constancia.constancia-generate');
     }
     public function generate_constancia_pdf(){
-        
+        redirect()->route('generate_constancia', ['id' => '1']);
         
     }
 }

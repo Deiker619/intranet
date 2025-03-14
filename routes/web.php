@@ -18,5 +18,5 @@ Route::middleware([
     })->name('dashboard');
 
     Route::get('/dashboard/constancia', [ConstanciaShow::class, 'render'])->name('constancia');
-    route::get('/dashboard/constanciaGenerate', [constanciapdf::class, 'generate_constancia'])->name('generate_constancia');
+    route::get('/dashboard/constanciaGenerate/{id}', [constanciapdf::class, 'generate_constancia'])->name('generate_constancia');
 });

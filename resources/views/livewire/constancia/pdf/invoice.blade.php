@@ -5,7 +5,10 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Constamcia</h1>
+    <h1>Constancia</h1>
+    {{$datos_trabajador}}
+
     
+   
 </body>
 </html>
