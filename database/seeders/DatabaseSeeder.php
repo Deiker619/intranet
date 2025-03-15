@@ -18,9 +18,9 @@ class DatabaseSeeder extends Seeder
         /* User::factory(10)->create(); */
       
         $this->call(create_all_users_sigesp::class); //Crea todos los usuarios de la base de datos sigesp
-        User::factory()->create([
+        /* User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
-        ]);
+        ]); */
     }
 }

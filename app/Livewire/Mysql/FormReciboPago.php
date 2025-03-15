@@ -11,8 +11,26 @@ class FormReciboPago extends Component
 {
     public $show;
     protected $sigespServices;
-    public $fechasper;
-    public $fechadesper;
+    public $periodo;
+    public $meses = [
+        '1' => 'Enero',
+        '2' => 'Febrero',
+        '3' => 'Marzo',
+        '4' => 'Abril',
+        '5' => 'Mayo',
+        '6' => 'Junio',
+        '7' => 'Julio',
+        '8' => 'Agosto',
+        '9' => 'Septiembre',
+        '10' => 'Octubre',
+        '11' => 'Noviembre',
+        '12' => 'Diciembre',
+    ];
+
+    public function extract_mes_español($mes){
+        return $this->meses[$mes];
+    }
+    
 
     public function boot(sigespServices $sigespServices)
     {
@@ -21,21 +39,20 @@ class FormReciboPago extends Component
 
     public function render()
     {
-        $periodos = $this->sigespServices->periodos();
+        $periodos = $this->sigespServices->getPeriodos();
 
         return view('livewire.mysql.form-recibo-pago', compact('periodos'));
     }
     public function setPeriodo($date)
     {
-        $this->fechadesper = $date;
-        if (!$date) return $this->fechasper = '';
-        $this->fechasper = $this->sigespServices->periodos_por_fecdesper($date);
-        $this->fechasper = $this->fechasper[0]->fechasper;
+        $this->periodo = $date;
     }
 
     public function dataSigesp()
     {
-        $recibo_pago = $this->sigespServices->recibo_pago_sigesp($this->fechadesper, $this->fechasper, Auth::user()->codper);
+        $recibo_pago = $this->sigespServices->getReciboPago(Auth::user()->cedper, $this->periodo);
+
+        //dd($recibo_pago->original['data'], $recibo_pago);
         $this->dispatch('post-created', recibo_pago: $recibo_pago);
     }
 }

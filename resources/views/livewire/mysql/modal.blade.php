@@ -12,7 +12,8 @@
                     <div
                         class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                            Recibo de pago: {{ $data->nomper . ' ' . $data->apeper }}
+                            Recibo de pago:
+                            {{ $data['primera-quincena']->personal->nomper . ' ' . $data['primera-quincena']->personal->apeper }}
                         </h3>
                         <button wire:click='$set("show", false)' type="button"
                             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -36,7 +37,7 @@
                             <li class="inline-flex items-center">
                                 <a class="text-xs">
 
-                                    {{ $data->nomper }}
+                                    {{ $data['primera-quincena']->personal->nomper }}
                                 </a>
                             </li>
                             <li>
@@ -47,7 +48,7 @@
                                             stroke-width="2" d="m1 9 4-4-4-4" />
                                     </svg>
                                     <a href="#"
-                                        class="ms-1 text-xs font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">V-{{ $data->cedper }}</a>
+                                        class="ms-1 text-xs font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">V-{{ $data['primera-quincena']->personal->cedper }}</a>
                                 </div>
                             </li>
                             <li aria-current="page">
@@ -58,7 +59,7 @@
                                             stroke-width="2" d="m1 9 4-4-4-4" />
                                     </svg>
                                     <span
-                                        class="ms-1 text-xs font-medium text-gray-500 md:ms-2 dark:text-gray-400">{{ $data->descar ?? 'Desconocido' }}</span>
+                                        class="ms-1 text-xs font-medium text-gray-500 md:ms-2 dark:text-gray-400">{{ $data['primera-quincena']->personal->descar ?? 'Desconocido' }}</span>
                                 </div>
                             </li>
                         </ol>
@@ -72,7 +73,7 @@
                                 <tr>
 
                                     <th scope="col" class="px-6 py-3">
-                                        {{ $data->desuniadm }}
+                                        {{ $data['primera-quincena']->personal->desuniadm }}
                                     </th>
                                 </tr>
                             </thead>
@@ -105,16 +106,16 @@
                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
 
                                     <td class="px-6 py-4">
-                                        {{ $data->codcueban }}
+                                        {{ $data['primera-quincena']->personal->codcueban }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        Bs.{{ number_format($data->sueper, 2, '.', ',') }}
+                                        Bs.{{ number_format($data['primera-quincena']->personal->sueper, 2, '.', ',') }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        Bs.{{ number_format($data->sueintper, 2, '.', ',') }}
+                                        Bs.{{ number_format($data['primera-quincena']->personal->sueintper, 2, '.', ',') }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{ date('d/m/Y', strtotime($data->fecingper)) }}
+                                        {{ date('d/m/Y', strtotime($data['primera-quincena']->personal->fecingper)) }}
                                     </td>
 
 
@@ -122,110 +123,63 @@
 
                             </tbody>
                         </table>
-                        {{-- Deducciones y asignaciones --}}
-                        <div class="md:grid md:grid-cols-2 md:place-items-center sm:flex sm:flex-col ">
-                            {{-- Asignaciones --}}
-                            <div class="col-span-1 w-full">
-                                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    <thead
-                                        class="text-xs text-gray-700 uppercase bg-lime-100 dark:bg-gray-700 dark:text-gray-400">
-                                        <tr>
+                        {{-- Separador --}}
 
-                                            <th scope="col" class="px-6 py-3">
-                                                Asignaciones
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    <thead
-                                        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                        <tr>
-
-                                            <th scope="col" class="px-6 py-3">
-                                                Conceptos
-                                            </th>
-                                            <th scope="col" class="px-6 py-3">
-                                                Asignaciones
-                                            </th>
-
-
-
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        <tr
-                                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-
-                                            <td class="px-6 py-4">
-                                                {{ $data->codcueban }}
-                                            </td>
-                                            <td class="px-6 py-4">
-                                                Bs.{{ number_format($data->sueper, 2, '.', ',') }}
-                                            </td>
-
-
-
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                            {{-- Deducciones --}}
-                            <div class="col-span-1 w-full">
-                                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    <thead
-                                        class="text-xs text-gray-700 uppercase bg-red-100 dark:bg-gray-700 dark:text-gray-400">
-                                        <tr>
-
-                                            <th scope="col" class="px-6 py-3">
-                                                Deducciones
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    <thead
-                                        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                        <tr>
-
-                                            <th scope="col" class="px-6 py-3">
-                                                Conceptos
-                                            </th>
-                                            <th scope="col" class="px-6 py-3">
-                                                Deducciones
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        <tr
-                                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-
-                                            <td class="px-6 py-4">
-                                                {{ $data->codcueban }}
-                                            </td>
-                                            <td class="px-6 py-4">
-                                                Bs.{{ number_format($data->sueper, 2, '.', ',') }}
-                                            </td>
-
-
-
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="inline-flex items-center justify-center w-full">
+                            <hr class="w-full h-px my-6 bg-gray-200 border-0 dark:bg-gray-700">
+                            <span
+                                class="absolute px-3 font-medium text-gray-900 -translate-x-1/2 bg-white left-1/2 dark:text-white dark:bg-gray-900">{{ $data['primera-quincena']->periodo->fechasper }}</span>
                         </div>
 
 
+                        {{-- Deducciones y asignaciones --}}
+                        <div class="md:grid md:grid-cols-2  sm:flex sm:flex-col ">
+                            {{-- Asignaciones --}}
+                            @livewire('mysql.asignaciones.asignaciones', ['data' => $data['primera-quincena']])
+                            {{-- Deducciones --}}
+                            @livewire('mysql.deducciones.deducciones', ['data' => $data['primera-quincena']])
+                        </div>
+
+
+                        @if ($data['segunda-quincena'])
+                            {{-- Separador --}}
+
+                            <div class="inline-flex items-center justify-center w-full">
+                                <hr class="w-full h-px my-6 bg-gray-200 border-0 dark:bg-gray-700">
+                                <span
+                                    class="absolute px-3 font-medium text-gray-900 -translate-x-1/2 bg-white left-1/2 dark:text-white dark:bg-gray-900">{{ $data['segunda-quincena']->periodo->fechasper }}</span>
+                            </div>
+                            <div class="md:grid md:grid-cols-2  sm:flex sm:flex-col ">
+                                {{-- Asignaciones --}}
+                                @livewire('mysql.asignaciones.asignaciones', ['data' => $data['segunda-quincena']])
+                                {{-- Deducciones --}}
+                                @livewire('mysql.deducciones.deducciones', ['data' => $data['segunda-quincena']])
+                            </div>
+                        @endif
+
+                        <div class=" flex flex-col justify-center p-4 gap-4 border md:flex-row w-full">
+                            
+                            <div class="flex flex-col md:flex-row gap-4">
+
+                                <p> <span class="font-light"> Total ingresos:</span> {{$data['total_asignaciones']}} Bs.s </p> <span class="hidden md:flex"> |</span>
+                                <p> <span class="font-light"> Total deducciones:</span> {{$data['total_deducciones']}} Bs.s </p>  <span class="hidden md:flex"> |</span>
+                            </div>
+                            <div class="flex flex-col justify-center">
+                                <p> <span class="text-blue-700 font-semibold"> Neto a cobrar:</span> {{$data['total_asignaciones'] + $data['total_deducciones'] }} Bs.s</p> 
+
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                        <button wire:click='prueba' data-modal-hide="static-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Imprimir</button>
-                        <button data-modal-hide="static-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Cancelar</button>
+                    <div class="flex items-center justify-between p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                        <div class="flex items-center justify-start border ">
+                            <button wire:click='prueba' data-modal-hide="static-modal" type="button"
+                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Imprimir</button>
+                            <button data-modal-hide="static-modal" type="button"
+                                class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Cancelar</button>
+                        </div>
+                        
                     </div>
+
 
                 </div>
 
