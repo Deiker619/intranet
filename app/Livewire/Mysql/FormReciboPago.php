@@ -12,6 +12,9 @@ class FormReciboPago extends Component
     public $show;
     protected $sigespServices;
     public $periodo;
+    public $rules = [
+        'periodo' => 'required|string|min:1'
+    ];
     public $meses = [
         '1' => 'Enero',
         '2' => 'Febrero',
@@ -27,10 +30,15 @@ class FormReciboPago extends Component
         '12' => 'Diciembre',
     ];
 
-    public function extract_mes_español($mes){
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
+    public function extract_mes_español($mes)
+    {
         return $this->meses[$mes];
     }
-    
+
 
     public function boot(sigespServices $sigespServices)
     {
@@ -43,15 +51,12 @@ class FormReciboPago extends Component
 
         return view('livewire.mysql.form-recibo-pago', compact('periodos'));
     }
-    public function setPeriodo($date)
-    {
-        $this->periodo = $date;
-    }
-
     public function dataSigesp()
     {
+        
+        $this->validate();
         $recibo_pago = $this->sigespServices->getReciboPago(Auth::user()->cedper, $this->periodo);
-
+        $this->reset(['periodo']);
         //dd($recibo_pago->original['data'], $recibo_pago);
         $this->dispatch('post-created', recibo_pago: $recibo_pago);
     }

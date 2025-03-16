@@ -7,6 +7,8 @@ use App\Services\sigespServices;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 
+
+
 class constanciapdf extends Controller
 {
     protected $sigespService;
@@ -14,10 +16,23 @@ class constanciapdf extends Controller
     {
         $this->sigespService = $sigesp_services;
     }
-    public function generate_constancia($id)
+    public function get_datos()
+    {
+        $datos = $this->sigespService->getConstanciaTrabajo(Auth::user()->cedper);
+        $statusCode = $datos->getStatusCode();
+
+        /* FIXME: Emitir sesion flask */
+        if($statusCode != 200){
+            return 0;
+        }
+        //dd($datos);
+        $datos = json_decode(json_encode($datos->original['data']['data'])?? []);
+        return $this->generate_constancia($datos);
+    }
+    public function generate_constancia($datos)
     {
         $data = [
-            'datos_trabajador' => Auth::user()
+            'datos_trabajador' => $datos
         ];
         $pdf = Pdf::loadView('livewire.constancia.pdf.invoice', $data)
             ->setOption('isHtml5ParserEnabled', true)

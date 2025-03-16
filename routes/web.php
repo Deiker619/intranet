@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\constancia\constanciapdf;
+use App\Http\Controllers\recibo_pago\recibo_pago_pdf;
 use App\Livewire\Constancia\ConstanciaShow;
 use Illuminate\Support\Facades\Route;
 
@@ -18,5 +19,12 @@ Route::middleware([
     })->name('dashboard');
 
     Route::get('/dashboard/constancia', [ConstanciaShow::class, 'render'])->name('constancia');
-    route::get('/dashboard/constanciaGenerate/{id}', [constanciapdf::class, 'generate_constancia'])->name('generate_constancia');
+
+
+
+    /* 
+        //Rutas para generar PDF'S 
+    */
+    route::get('/dashboard/constanciaGenerate/', [constanciapdf::class, 'get_datos'])->name('generate_constancia');
+    route::get('/dashboard/generate_recibo_pago', [recibo_pago_pdf::class, 'generate_recibo_pago'])->name('generate_recibo_pago');
 });

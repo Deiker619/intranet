@@ -182,16 +182,15 @@ class sigespServices
 
     }
 
-    public function getConstanciaTrabajo(Request $request)
+    public function getConstanciaTrabajo($cedula)
     {
         Carbon::setLocale('es');
 
         //para validar si mostrar o no remuneracion o cesta tickes
         $options = [
-            'remuneracion' => $request->remuneracion,
-            'ticket' => $request->ticket,
+            'remuneracion' => '$request->remuneracion,',
+            'ticket' => '$request->ticket'
         ];
-        $cedula=$request->cedula;
         $codper=str_pad($cedula, 10, "0", STR_PAD_LEFT);//se completa con 10 ceros a la izquierda
         $periodoNom =env('NUMERO_PERIODO_NOMINA');
 
