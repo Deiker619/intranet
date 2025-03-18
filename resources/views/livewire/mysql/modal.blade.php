@@ -164,7 +164,7 @@
                                 <p> <span class="font-light"> Total ingresos:</span> {{ $data['total_asignaciones'] }}
                                     Bs.s </p> <span class="hidden md:flex"> |</span>
                                 <p> <span class="font-light"> Total deducciones:</span>
-                                    {{ $data['total_deducciones'] }} Bs.s </p> <span class="hidden md:flex"> |</span>
+                                    {{ $data['total_deducciones'] * (-1) }} Bs.s </p> <span class="hidden md:flex"> |</span>
                             </div>
                             <div class="flex flex-col justify-center">
                                 <p> <span class="text-blue-700 font-semibold"> Neto a cobrar:</span>

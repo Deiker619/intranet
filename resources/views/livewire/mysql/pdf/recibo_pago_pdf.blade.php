@@ -46,7 +46,8 @@
     <div class="header">
         <img src="img/logo.png" width="100" height="80">
         <h2>FUNDACIÓN MISIÓN JOSÉ GREGORIO HERNÁNDEZ</h2>
-        <p>Recibo CONTRATADO</p>
+        <p>Recibo {{$recibo_pago['primera-quincena']->personal->desnom}}</p>
+        <p>{{$recibo_pago['primera-quincena']->personal->desuniadm}}</p>
     </div>
 
     <table class="table">
@@ -88,7 +89,7 @@
                 <td>{{ $asignaciones[$i]->nomcon ?? '' }}</td>
                 <td>{{ $asignaciones[$i]->valsal ?? '' }}</td>
                 <td>{{ $deducciones[$i]->nomcon ?? '' }}</td>
-                <td>{{ $deducciones[$i]->valsal ?? '' }}</td>
+                <td>{{ $deducciones[$i]->valsal * (-1)?? '' }}</td>
             </tr>
         @endfor
     </table>
@@ -120,7 +121,7 @@
                     <td>{{ $asignaciones[$i]->nomcon ?? '' }}</td>
                     <td>{{ $asignaciones[$i]->valsal ?? '' }}</td>
                     <td>{{ $deducciones[$i]->nomcon ?? '' }}</td>
-                    <td>{{ $deducciones[$i]->valsal ?? '' }}</td>
+                    <td>{{ $deducciones[$i]->valsal * (-1) ?? '' }}</td>
                 </tr>
             @endfor
         </table>
@@ -130,7 +131,7 @@
             <th>Total Ingresos: </th>
             <td>{{ $recibo_pago['total_asignaciones'] }} </td>
             <th>Total Deducciones</th>
-            <td>{{ $recibo_pago['total_deducciones'] }}</td>
+            <td>{{ $recibo_pago['total_deducciones'] * (-1) }}</td>
 
         </tr>
         <tr>

@@ -41,11 +41,11 @@
                         <a href="{{ route('login') }}" class="px-3 py-2 rounded-md text-sm font-extrabold text-blue-400 hover:bg-sky-100 transition duration-300">
                             Ingresar
                         </a>
-                        @if (Route::has('register'))
+                        {{-- @if (Route::has('register'))
                             <a href="{{ route('register') }}" class="px-3 py-2 rounded-md text-sm font-extrabold text-blue-400 hover:bg-sky-100 transition duration-300">
                                 Registrarse
                             </a>
-                        @endif
+                        @endif --}}
                     @endauth
                 </nav>
                 @endif

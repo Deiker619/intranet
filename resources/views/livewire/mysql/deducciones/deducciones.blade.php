@@ -34,7 +34,7 @@
                             {{ $item->nomcon}}
                         </td>
                         <td class="px-6 py-4">
-                            Bs.{{ number_format($item->valsal, 2, '.', ',') }}
+                            Bs.{{ number_format($item->valsal, 2, '.', ',') *( -1) }}
                         </td>
 
 

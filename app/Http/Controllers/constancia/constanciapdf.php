@@ -34,6 +34,7 @@ class constanciapdf extends Controller
         $data = [
             'datos_trabajador' => $datos
         ];
+     
         $pdf = Pdf::loadView('livewire.constancia.pdf.invoice', $data)
             ->setOption('isHtml5ParserEnabled', true)
             ->setOption('isPhpEnabled', true);

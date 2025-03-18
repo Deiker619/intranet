@@ -17,9 +17,6 @@ class ConstanciaGenerate extends Component
     }
     public function generate_constancia_pdf()
     {
-      /*  $this->dispatch('showAlertSuccess','Hola'); */
-
-
         redirect()->route('generate_constancia'); 
 
     }

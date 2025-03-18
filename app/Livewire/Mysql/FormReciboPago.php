@@ -5,6 +5,8 @@ namespace App\Livewire\Mysql;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use App\Services\sigespServices;
+use DateTime;
+
 use Illuminate\Support\Facades\Auth;
 
 class FormReciboPago extends Component
@@ -48,16 +50,47 @@ class FormReciboPago extends Component
     public function render()
     {
         $periodos = $this->sigespServices->getPeriodos();
-
+        $periodos = $this->ordenarPeriodos($periodos);
         return view('livewire.mysql.form-recibo-pago', compact('periodos'));
     }
+
     public function dataSigesp()
     {
-        
+
         $this->validate();
         $recibo_pago = $this->sigespServices->getReciboPago(Auth::user()->cedper, $this->periodo);
         $this->reset(['periodo']);
-        //dd($recibo_pago->original['data'], $recibo_pago);
-        $this->dispatch('post-created', recibo_pago: $recibo_pago);
+        //dd($recibo_pago);
+        if ($this->validateStatusReciboPago($recibo_pago)) {
+            $this->dispatch('post-created', recibo_pago: $recibo_pago);
+        };
+    }
+    public function validateStatusReciboPago($recibo_pago)
+    {
+        $statusCode = $recibo_pago->getStatusCode();
+
+        /* FIXME: Emitir sesion flask */
+        if ($statusCode == 200) {
+            $this->dispatch('showAlertSuccess', 'Registro encontrado');
+            return true; //Esta apto para emitir recibo de pago
+        } 
+        if ($statusCode == 423){
+            $this->dispatch('showAlertError', 'Registro no encontrado');
+            return false;
+        } 
+    }
+
+    public function ordenarPeriodos($periodos)
+    {
+        $periodosOrdenados = $periodos->toArray();
+        usort($periodosOrdenados, function ($a, $b) {
+            // Convertir el periodo a una fecha para comparar
+            $dateA = DateTime::createFromFormat('n-Y', $a->periodo);
+            $dateB = DateTime::createFromFormat('n-Y', $b->periodo);
+
+            // Comparar las fechas
+            return $dateA <=> $dateB;
+        });
+        return $periodosOrdenados;
     }
 }
