@@ -34,7 +34,7 @@
                 @if (Route::has('login'))
                 <nav class="hidden md:flex space-x-4">
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="px-3 py-2 rounded-md text-sm  text-blue-400 bg-sky-700 hover:bg-sky-100 transition duration-300">
+                        <a href="{{ url('/dashboard') }}" class="px-3 py-2 rounded-md text-sm  text-white bg-sky-700 hover:bg-sky-100 transition duration-300">
                             Dashboard
                         </a>
                     @else

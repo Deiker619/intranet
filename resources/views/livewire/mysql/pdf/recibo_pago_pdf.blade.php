@@ -66,7 +66,7 @@
         </tr>
     </table>
     <p class="summary">
-        <strong>{{ $recibo_pago['primera-quincena']->periodo->fechasper }}: </strong><br>
+        <strong>Desde {{ $recibo_pago['primera-quincena']->periodo->fecdesper }} - Hasta: {{ $recibo_pago['primera-quincena']->periodo->fechasper }} </strong><br>
     </p>
     <table class="table">
         <tr>
@@ -98,7 +98,7 @@
 
     @if ($recibo_pago['segunda-quincena'])
         <p class="summary">
-            <strong>{{ $recibo_pago['segunda-quincena']->periodo->fechasper }}: </strong><br>
+            <strong> Desde {{ $recibo_pago['segunda-quincena']->periodo->fecdesper }} - Hasta: {{ $recibo_pago['segunda-quincena']->periodo->fechasper }} </strong><br>
         </p>
         <table class="table">
             <tr>
