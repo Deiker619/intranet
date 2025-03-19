@@ -94,6 +94,9 @@ body {
         labora en nuestra institución desde el <strong>{{'Algo'}}</strong> 
         desempeñando el cargo de <strong>{{ 'Algo' }}</strong>.</p>
 
+        <p>Su salario mensual es de <strong>{{ number_format($datos_trabajador['salario'] ?? 0, 2, ',', '.')}} Bs.</strong>
+            <strong>{{ $datos_trabajador['salario_letras'] ?? 'N/A' }} Bolívares</strong>.</p>
+
         <p>Esta constancia se expide a solicitud de la parte interesada en <strong>{{ date('d/m/Y') }}</strong>.</p>
     </div>
 
