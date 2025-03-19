@@ -30,10 +30,10 @@ class constanciapdf extends Controller
 
         // Decodificar los datos
         $datos = json_decode(json_encode($datos->original['data']['data']), true);
-
         // Convertir el salario a letras
-        $salario = $datos['salario'] ?? 0; // Aqui se asegura el salario y la letra 
-        $datos['salario_letras'] = $this->convertirNumeroALetras($salario);
+        $salario = $datos['sueldo'] ?? 0; // Aqui se asegura el salario y la letra 
+        $datos['salario_letras'] = strtoupper($this->convertirNumeroALetras($salario));
+        //dd($datos);
 
         // Generar el PDF
         return $this->generate_constancia($datos);
