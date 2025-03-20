@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class sigespServices
 {
@@ -835,5 +836,22 @@ class sigespServices
             'deducciones' => $deducciones,
             'periodo' => $periodoCustm,
         ];
+    }
+
+    /**
+     * The function `detect_status_personal` checks the status of a personal record based on a given
+     * code and returns whether it is active or not.
+     * 
+     * @return The function `detect_status_personal` is checking the status of a personal record with
+     * the code number '0030165406' in the 'sno_personalnomina' table. If the status (staper) is 1, it
+     * returns 'Esta activo' (meaning it is active), otherwise it returns 'no esta activo' (meaning it
+     * is not active).
+     */
+    public function detect_status_personal($codper){
+        $status = DB::connection('pgsql')->table('sno_personalnomina')
+        ->select('staper')
+        ->where('codper', $codper)->first();
+        
+        return $status;
     }
 }

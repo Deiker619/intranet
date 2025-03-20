@@ -13,13 +13,13 @@ Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
+    'statusPersonal'
 ])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
 
     Route::get('/dashboard/constancia', [ConstanciaShow::class, 'render'])->name('constancia');
-
 
 
     /* 

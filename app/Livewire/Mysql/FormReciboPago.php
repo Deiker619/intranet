@@ -51,6 +51,7 @@ class FormReciboPago extends Component
     {
         $periodos = $this->sigespServices->getPeriodos();
         $periodos = $this->ordenarPeriodos($periodos);
+       // $this->detect_status_personal();
         return view('livewire.mysql.form-recibo-pago', compact('periodos'));
     }
 
@@ -93,4 +94,6 @@ class FormReciboPago extends Component
         });
         return $periodosOrdenados;
     }
+
+    
 }
