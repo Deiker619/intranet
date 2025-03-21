@@ -1,6 +1,6 @@
 <div class="w-full">
     
-    <form class="max-w-5xl md:mx-auto bg-white p-8 rounded-md m-8 md:m-4">
+    <form class="max-w-5xl md:mx-auto bg-white md:p-8 rounded-md m-8 md:m-4">
         <div class="grid md:grid-cols-2 gap-2 sm:grid-cols-1 w-full">
             <div class="mb-5 col-span-2">
                 <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white motion-preset-typewriter ">Seleccione el mes</label>
