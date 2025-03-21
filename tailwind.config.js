@@ -25,6 +25,7 @@ export default {
 
     /* plugins: [forms, typography], */
     plugins: [
-        require('flowbite/plugin')
+        require('flowbite/plugin'),
+        require('tailwindcss-motion')
     ],
 };
