@@ -70,7 +70,6 @@ class FormReciboPago extends Component
     {
         $statusCode = $recibo_pago->getStatusCode();
 
-        /* FIXME: Emitir sesion flask */
         if ($statusCode == 200) {
             $this->dispatch('showAlertSuccess', 'Registro encontrado');
             return true; //Esta apto para emitir recibo de pago

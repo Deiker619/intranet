@@ -137,43 +137,17 @@ class sigespServices
         ** Conceptos 
     
     */
-    public function all_conceptos($codnom = '0400')
+    public function get_constante()
     {
-        $conceptos = DB::connection('pgsql')->table('sno_concepto')
-            ->select('codconc', 'nomcon', 'titcon', 'forcon')->where('codnom', $codnom)
+        $conceptos = DB::connection('pgsql')->table('sno_constante')
+            ->select('codcons', 'nomcon', 'valcon')->where([
+                ['codemp', '0001'],
+                ['codnom', '0502'],
+                ['codcons', '0000000001']
+                ])
             ->get();
         return $conceptos;
     }
-    public function get_conceptos_personal($codnom = '0401', $codperi = '001', $codper = '0030165406')
-    {
-        $conceptos = DB::connection('pgsql')->table('sno_hconceptopersonal')
-            ->select('codnom', 'codperi', 'codper', 'codconc')->where([
-                ['codnom', $codnom],
-                ['codperi', $codperi],
-                ['codper', $codper]
-            ])
-            ->orderBy('codconc')
-            ->get();
-        return $conceptos;
-    }
-    public function all_historico_conceptos_personal()
-    {
-        $conceptos = DB::connection('pgsql')->table('sno_hconceptopersonal')
-            ->select('sno_hconceptopersonal.codper', 'sno_hconceptopersonal.codconc', 'sno_hconcepto.nomcon','sno_hconceptopersonal.acuemp')
-            ->where([['sno_hconceptopersonal.codper', '0030165406'],
-                     ['sno_hconceptopersonal.codnom', '0401'],
-                      ['sno_hconceptopersonal.codperi', '015']])
-            ->join('sno_hconcepto', function ($join) {
-                    $join->on('sno_hconceptopersonal.codconc', '=', 'sno_hconcepto.codconc');
-                    $join->on('sno_hconceptopersonal.codnom', '=', 'sno_hconcepto.codnom');
-                    $join->on('sno_hconceptopersonal.codperi', '=', 'sno_hconcepto.codperi');
-                    })
-            ->get();
-        return $conceptos;
-    }
-
-
-
 
     public function getPeriodos()
     {

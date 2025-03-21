@@ -31,7 +31,7 @@ class constanciapdf extends Controller
         // Decodificar los datos
         $datos = json_decode(json_encode($datos->original['data']['data']), true);
         // Convertir el salario a letras
-        $salario = $datos['sueldo'] ?? 0; // Aqui se asegura el salario y la letra 
+        $salario = $datos['sueldo'] *100 ?? 0; // Aqui se asegura el salario y la letra 
         $datos['salario_letras'] = strtoupper($this->convertirNumeroALetras($salario));
         //dd($datos);
 
@@ -51,8 +51,9 @@ class constanciapdf extends Controller
             ->setOption('isHtml5ParserEnabled', true)
             ->setOption('isPhpEnabled', true);
 
-        // Descargar el PDF
-        return $pdf->stream();
+        // Configurar headers para abrir en nueva pestaña
+        return $pdf->download('constancia.pdf')
+            ->header('Content-Disposition', 'inline; filename="constancia.pdf"');
     }
 
     /**
@@ -67,9 +68,9 @@ class constanciapdf extends Controller
         $numberToWords = new NumberToWords();
 
         // Obtener el transformador de números a palabras en español
-        $numberTransformer = $numberToWords->getNumberTransformer('es');
+        $numberTransformer = $numberToWords->getCurrencyTransformer('es');
 
         // Convertir el número a letras
-        return $numberTransformer->toWords($number);
+        return $numberTransformer->toWords($number, 'BS');
     }
 }

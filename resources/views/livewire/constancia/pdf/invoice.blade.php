@@ -68,13 +68,18 @@
 
         /* Firma */
         .signature {
-            margin-top: 50px;
+            margin-top: 20px;
             text-align: center;
         }
         .signature2 {
           
             text-align: right;
             margin-top: 50px;
+        }
+        .signature3 {
+          
+            text-align: left;
+            margin-top: 20px;
         }
     
 
@@ -92,6 +97,18 @@
             padding: 0
 
         }
+        .signature3 p {
+            /*     border-top: 1px solid #000; */
+            width: 100%;
+            text-align: left;
+            padding: 0;
+            margin: 0
+
+        }
+        .firma {
+            text-align: center;
+            margin-top: 50px;
+        }
     </style>
 </head>
 
@@ -103,14 +120,13 @@
         <p><strong>RIF:</strong> J-12345678-9</p>
     </div> --}}
     <br>
-    <br>
-    <br>
+ 
     <div class="content">
         <strong>
             <p style="text-align: center; font-size: 16px">CONSTANCIA</p>
         </strong>
-        <br>
-        <p style="font-size: 16px; text-align: justify">Quien suscribe, <strong>GERENTE (E) DE LA OFICINA DE GESTIÒN
+       
+        <p style="font-size: 16px; text-align: justify">Quien suscribe, <strong>GERENTE DE LA OFICINA DE GESTIÒN
                 HUMANA</strong> de la <strong>FUNDACIÓN MISIÓN JOSÉ GREGORIO HERNÁNDEZ</strong> (FMJGH)
             por medio de la presente hace constar que el (la) ciudadano(a) <strong>{{ $datos_trabajador['apellido'] }},
                 {{ $datos_trabajador['nombre'] }} </strong>,
@@ -120,7 +136,7 @@
             adscrito(a)
             a la <strong>{{ $datos_trabajador['oficina'] }}</strong>, desempeñando el cargo de <strong>{{
                 $datos_trabajador['cargo'] }}</strong>,
-            devengando un salario mensual de <strong>{{$datos_trabajador['salario_letras']}} Bolívares 00/100</strong>
+            devengando un salario mensual de <strong>{{$datos_trabajador['salario_letras']}} CON 00/100 Centimos</strong>
             <strong>( {{ number_format($datos_trabajador['sueldo'],2,',','.') }} Bs.)</strong>
             más bono de alimentación por un monto de 2.579,00 Bs mensuales
         </p>
@@ -129,29 +145,29 @@
             dia {{now()->day}} de {{now()->monthName}} del {{now()->year}}</p>
         <p style="text-align: center; font-size: 16px">Atentamente, </p>
     </div>
-    <br>
+    <div class="firma">
+        <img style="text-align: center" src="{{ public_path('img/firma.png') }}" height="100px" width="300px"  alt="Logo">
+
+    </div>
 
     <div class="signature">
         <strong>
             <p style="font-size: 16px">{{env('GERENTE_GESTION_HUMANA')}}</p>
         </strong>
         <strong>
-            <p style="font-size: 14px">GERENTE (E) DE LA OFICINA DE GESTIÒN HUMANA</p>
+            <p style="font-size: 14px">GERENTE DE LA OFICINA DE GESTIÒN HUMANA</p>
         </strong>
         <strong>
             <p style="font-size: 14px">Fundación Misión José Gregorio Hernández</p>
         </strong>
         <p style="text-align: center">
             <i> Providencia Administrativa N° 024/2018 – 26 Junio 2018
-                “Dejémonos guiar por el tino, la sabiduría y el coraje de nuestro pueblo,
-                allí está la clave para que nuestra Revolución siga victoriosa”</i>
+                </i>
         </p>
-        <strong> <i>
-                <p>Comandante Eterno Hugo Chávez Frías</p>
-            </i></strong>
+       
 
     </div>
-    <div  style="text-align: right; width:100%; margin-top: 50px">
+    <div  class="signature2">
 
         
             <p>“Dejémonos guiar por el tino, la sabiduría y el coraje de nuestro pueblo,</p>
@@ -162,9 +178,9 @@
 
 
     </div>
-    <div class="signature">
+    <div class="signature3" style="text-align: left; width:100%; ">
         <strong>
-            <p style="font-size: 16px">Va sin enmienda</p>
+            <p style="font-size: 14px">Va sin enmienda</p>
         </strong>
         <strong>
             <p style="font-size: 14px">Válido por 3 Meses a partir de la fecha de emisión.</p>
@@ -173,7 +189,7 @@
 
 
 
-    <div style="margin-top: 5%" class="footer">
+    <div style="margin-top: 60px" class="footer">
         <p>Av. Urdaneta, Edf. Centro Financiero Latino, Piso 25, Of. 25-4 Urb. La Candelaria, Caracas, Distrito Capital.
             Teléfonos: 0212-5633072, 0414-3380398 -04241365553
             <strong> <span> RIF.: G-200108932</span></strong>

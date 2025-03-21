@@ -20,8 +20,8 @@ class statusPersonal
      */
     public function handle(Request $request, Closure $next): Response
     {
-        //dd($request);
         $status = $this->detect_status_personal();
+        //dd($status);
         if($status->staper == 1){
             
             return $next($request);

@@ -112,9 +112,9 @@
                 <!--card numero 2 -->
                 <div class="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300">
                     <h3 class="text-xl font-bold text-blue-700 mb-2">
-                        Generar constancia de pago
+                        Generar constancia de trabajo
                     </h3>
-                    <p class="text-gray-700"> Imprime y genera tu constancia de pago en cualquier momento</p>
+                    <p class="text-gray-700"> Imprime y genera tu constancia de trabajo en cualquier momento</p>
                    
                 </div>
 
