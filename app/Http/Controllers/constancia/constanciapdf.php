@@ -71,6 +71,6 @@ class constanciapdf extends Controller
         $numberTransformer = $numberToWords->getCurrencyTransformer('es');
 
         // Convertir el número a letras
-        return $numberTransformer->toWords($number, 'BS');
+        return $numberTransformer->toWords($number, 'VEB');
     }
 }
