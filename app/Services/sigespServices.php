@@ -167,7 +167,7 @@ class sigespServices
             'ticket' => '$request->ticket'
         ];
         $codper=str_pad($cedula, 10, "0", STR_PAD_LEFT);//se completa con 10 ceros a la izquierda
-        $periodoNom =env('NUMERO_PERIODO_NOMINA');
+        $periodoNom =env('NUMERO_PERIODO_NOMINA')??'040';
 
         $usigesp = DB::connection('pgsql')->table('sno_personal')
             ->where('cedper', $cedula)
@@ -439,6 +439,7 @@ class sigespServices
         ->orderBy('codperi', 'asc')
         ->get()
         ->last();
+        
 
         $segPeriodo = DB::connection('pgsql')->table('sno_hperiodo')
         ->where('fecdesper', $date->addDays(15)->format('Y-m-d'))
@@ -477,6 +478,7 @@ class sigespServices
                 'message' => 'Registro encontrado'
             ], 200);
         }else{
+            
             return response()->json([
                 'message' => 'El último período de nómina no se encuentra cerrado o el usuario no se encuentra registrado en nómina, comuníquese con la unidad de recursos humanos'
             ], 423);
@@ -495,7 +497,7 @@ class sigespServices
         $fecdesper = new Carbon($periodo->fecdesper);
         $fechasper = new Carbon($periodo->fechasper);
         $codper=str_pad($cedula, 10, "0", STR_PAD_LEFT);//se completa con 10 ceros a la izquierda
-        $periodoNom =env('NUMERO_PERIODO_NOMINA');
+        $periodoNom =env('NUMERO_PERIODO_NOMINA')??'040';
      
         $periodoCustm = [
             'codperi' => $periodo->codperi,
