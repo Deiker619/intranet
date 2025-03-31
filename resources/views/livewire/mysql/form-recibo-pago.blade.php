@@ -10,9 +10,10 @@
                     <option value=""></option>
                     @foreach ($periodos as $item)
                         @php
-                            $mes_español = $this->extract_mes_español(\Carbon\Carbon::createFromFormat('m-Y', $item->periodo)->format('n'));
+                          
+                          $mes_español = $this->extract_mes_español(\Carbon\Carbon::createFromFormat('!m-Y', $item->periodo)->format('n'));
                         @endphp
-                        <option value="{{ $item->periodo }}"> {{ $mes_español }}</option>
+                        <option value="{{ $item->periodo }}">   {{ $mes_español }}</option>
                     @endforeach
 
                 </select>

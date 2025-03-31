@@ -6,7 +6,7 @@ use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use App\Services\sigespServices;
 use DateTime;
-
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class FormReciboPago extends Component
@@ -38,6 +38,7 @@ class FormReciboPago extends Component
     }
     public function extract_mes_español($mes)
     {
+        
         return $this->meses[$mes];
     }
 
@@ -51,7 +52,8 @@ class FormReciboPago extends Component
     {
         $periodos = $this->sigespServices->getPeriodos();
         $periodos = $this->ordenarPeriodos($periodos);
-       // $this->detect_status_personal();
+        //dd($periodos);
+        //dd($periodos[1]->periodo);
         return view('livewire.mysql.form-recibo-pago', compact('periodos'));
     }
 
