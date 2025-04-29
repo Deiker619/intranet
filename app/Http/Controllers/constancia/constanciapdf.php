@@ -31,10 +31,10 @@ class constanciapdf extends Controller
         // Decodificar los datos
         $datos = json_decode(json_encode($datos->original['data']['data']), true);
         // Convertir el salario a letras
-        $salario = $datos['sueldo'] *100 ?? 0; // Aqui se asegura el salario y la letra 
+        $datos['sueldo_integral'] = $this->salarioIntegralMensual($datos['sueldo_integral']);
+        $salario = $datos['sueldo_integral'] * 100 ?? 0; // Aqui se asegura el salario y la letra 
         $datos['salario_letras'] = strtoupper($this->convertirNumeroALetras($salario));
         //dd($datos);
-
         // Generar el PDF
         return $this->generate_constancia($datos);
     }
@@ -64,13 +64,13 @@ class constanciapdf extends Controller
      */
     private function convertirNumeroALetras($number)
     {
-        // Crear una instancia de NumberToWords
-        $numberToWords = new NumberToWords();
+        
+        return NumberToWords::transformCurrency('es', round($number), 'VEB'); // outputs "fifty dollars ninety nine cents"
+    }
 
-        // Obtener el transformador de números a palabras en español
-        $numberTransformer = $numberToWords->getCurrencyTransformer('es');
+    public function salarioIntegralMensual($salarioIntegral){
+        $salarioIntegral = $salarioIntegral * 2;
+        return $salarioIntegral;
 
-        // Convertir el número a letras
-        return $numberTransformer->toWords($number, 'VEB');
     }
 }

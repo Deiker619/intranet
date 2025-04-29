@@ -136,8 +136,8 @@
             adscrito(a)
             a la <strong>{{ $datos_trabajador['oficina'] }}</strong>, desempeñando el cargo de <strong>{{
                 $datos_trabajador['cargo'] }}</strong>,
-            devengando un salario mensual de <strong>{{$datos_trabajador['salario_letras']}} CON 00/100 Centimos</strong>
-            <strong>( {{ number_format($datos_trabajador['sueldo'],2,',','.') }} Bs.)</strong>
+            devengando un salario mensual de <strong>{{$datos_trabajador['salario_letras']}} </strong>
+            <strong>( {{ number_format($datos_trabajador['sueldo_integral'],2,',','.')  }} Bs.)</strong>
             más bono de alimentación por un monto de 2.579,00 Bs mensuales
         </p>
 
