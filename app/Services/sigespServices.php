@@ -289,7 +289,8 @@ class sigespServices
         $constFinal = eval("return nl2br(\"$constFinal\");"); 
         // Convertir a UTF-8 antes de devolver la respuesta
         $constFinal = mb_convert_encoding($constFinal, 'UTF-8', 'ISO-8859-15');
-
+        //$cestaTickets = $this->getCestaTickets();
+        //dd($cestaTickets);
         $data = [
             'codigo' => $personal->codper,
             'nombre' => $personal->nomper,
@@ -311,6 +312,19 @@ class sigespServices
         ], 200);
      
         
+    }
+
+    public function getCestaTickets(){
+
+        $totalTickets = DB::connection('pgsql')->table('sno_constante')
+        ->select('codcons', 'nomcon', 'valcon')
+        ->where([
+            ['codemp', '0001'],
+            ['codcons', '0000000001'],
+            ['codnom', '0501'],
+        ])
+        ->get();
+        return $totalTickets;
     }
 
     public function getReciboPago($cedula, $fecha)

@@ -22,12 +22,10 @@ class constanciapdf extends Controller
         // Obtener los datos del trabajador
         $datos = $this->sigespService->getConstanciaTrabajo(Auth::user()->cedper);
         $statusCode = $datos->getStatusCode();
-
         // Manejar errores
         if ($statusCode != 200) {
             return 0;
         }
-
         // Decodificar los datos
         $datos = json_decode(json_encode($datos->original['data']['data']), true);
         // Convertir el salario a letras
@@ -45,7 +43,6 @@ class constanciapdf extends Controller
         $data = [
             'datos_trabajador' => $datos
         ];
-
         // Generar el PDF
         $pdf = Pdf::loadView('livewire.constancia.pdf.invoice', $data)
             ->setOption('isHtml5ParserEnabled', true)
@@ -55,7 +52,6 @@ class constanciapdf extends Controller
         return $pdf->download('constancia.pdf')
             ->header('Content-Disposition', 'inline; filename="constancia.pdf"');
     }
-
     /**
      * Convierte un número a letras.
      *
@@ -64,7 +60,6 @@ class constanciapdf extends Controller
      */
     private function convertirNumeroALetras($number)
     {
-        
         return NumberToWords::transformCurrency('es', round($number), 'VEB'); // outputs "fifty dollars ninety nine cents"
     }
 
