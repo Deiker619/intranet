@@ -155,7 +155,7 @@
             <p style="font-size: 16px">{{env('GERENTE_GESTION_HUMANA')}}</p>
         </strong>
         <strong>
-            <p style="font-size: 14px">GERENTE DE LA OFICINA DE GESTIÒN HUMANA</p>
+            <p style="font-size: 14px">GERENTE DE LA OFICINA DE GESTIÓN HUMANA</p>
         </strong>
         <strong>
             <p style="font-size: 14px">Fundación Misión José Gregorio Hernández</p>

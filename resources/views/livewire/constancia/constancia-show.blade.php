@@ -47,7 +47,7 @@
 
             </section>
 
-            <section class="flex justify-center items-center">
+            <section class="flex justify-center items-center w-full">
 
                 @livewire('constancia.constancia-generate')
             </section>
