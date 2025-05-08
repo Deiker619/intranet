@@ -279,8 +279,7 @@ class sigespServices
         $constFinal = eval("return nl2br(\"$constFinal\");"); 
         // Convertir a UTF-8 antes de devolver la respuesta
         $constFinal = mb_convert_encoding($constFinal, 'UTF-8', 'ISO-8859-15');
-       // $cestaTickets = $this->getConstante('0001','0000000001','0501');
-        //dd($cestaTickets);
+        $cestaTickets = $this->getConstante('0001','0000000001','0501');
         $data = [
             'codigo' => $personal->codper,
             'nombre' => $personal->nomper,
@@ -290,6 +289,7 @@ class sigespServices
             'oficina' => $personal->desuniadm,
             'sueldo' => $personal->sueper,
             'sueldo_integral' => $personal->sueintper,
+            'cesta_tikets' =>$cestaTickets,
             'expira' => $expira,
             'constancia' => $constFinal,
             'opciones' => $options,
@@ -317,7 +317,7 @@ class sigespServices
             ['codcons', $codcons],
             ['codnom', $codnom],
         ])
-        ->get();
+        ->first();
         return $totalTickets;
     }
 

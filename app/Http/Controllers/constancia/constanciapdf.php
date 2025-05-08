@@ -32,7 +32,6 @@ class constanciapdf extends Controller
         $datos['sueldo_integral'] = $this->salarioIntegralMensual($datos['sueldo_integral']);
         $salario = $datos['sueldo_integral'] * 100 ?? 0; // Aqui se asegura el salario y la letra 
         $datos['salario_letras'] = strtoupper($this->convertirNumeroALetras($salario));
-        //dd($datos);
         // Generar el PDF
         return $this->generate_constancia($datos);
     }

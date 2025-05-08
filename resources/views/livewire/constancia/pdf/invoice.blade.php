@@ -138,7 +138,7 @@
                 $datos_trabajador['cargo'] }}</strong>,
             devengando un salario mensual de <strong>{{$datos_trabajador['salario_letras']}} </strong>
             <strong>( {{ number_format($datos_trabajador['sueldo_integral'],2,',','.')  }} Bs.)</strong>
-            más bono de alimentación por un monto de 2.579,00 Bs mensuales
+            más bono de alimentación por un monto de <strong>{{ number_format($datos_trabajador['cesta_tikets']['valcon'],2,',','.')  }} </strong> Bs mensuales
         </p>
 
         <p style="text-indent: 25px; font-size: 16px">Constancia que se expide a solicitud de la parte interesada, el
