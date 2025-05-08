@@ -41,17 +41,7 @@ class sigespServices
         ** Conceptos 
     
     */
-    public function get_constante()
-    {
-        $conceptos = DB::connection('pgsql')->table('sno_constante')
-            ->select('codcons', 'nomcon', 'valcon')->where([
-                ['codemp', '0001'],
-                ['codnom', '0502'],
-                ['codcons', '0000000001']
-                ])
-            ->get();
-        return $conceptos;
-    }
+    
 
     public function getPeriodos()
     {
@@ -289,7 +279,7 @@ class sigespServices
         $constFinal = eval("return nl2br(\"$constFinal\");"); 
         // Convertir a UTF-8 antes de devolver la respuesta
         $constFinal = mb_convert_encoding($constFinal, 'UTF-8', 'ISO-8859-15');
-        //$cestaTickets = $this->getCestaTickets();
+       // $cestaTickets = $this->getConstante('0001','0000000001','0501');
         //dd($cestaTickets);
         $data = [
             'codigo' => $personal->codper,
@@ -314,14 +304,18 @@ class sigespServices
         
     }
 
-    public function getCestaTickets(){
+    /* 
+        Necesita codigo de empleado, codigo de concepto (codcons) y codigo de nomina (codnom)
+    */
+
+    public function getConstante($codemp='0001', $codcons, $codnom ){
 
         $totalTickets = DB::connection('pgsql')->table('sno_constante')
         ->select('codcons', 'nomcon', 'valcon')
         ->where([
-            ['codemp', '0001'],
-            ['codcons', '0000000001'],
-            ['codnom', '0501'],
+            ['codemp', $codemp],
+            ['codcons', $codcons],
+            ['codnom', $codnom],
         ])
         ->get();
         return $totalTickets;
