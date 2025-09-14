@@ -113,7 +113,7 @@
 </head>
 
 <body>
-    <img src="{{ public_path('img/cintillo2.png') }}" width="800" alt="Logo">
+    <img src="{{ public_path('img/cintillo2.png') }}" alt="Logo" style="margin-top: -20px; width:800px;">
 
     {{-- <div class="header">
         <h1>Fundación José Gregorio Hernández</h1>
