@@ -279,7 +279,7 @@ class sigespServices
         $constFinal = eval("return nl2br(\"$constFinal\");"); 
         // Convertir a UTF-8 antes de devolver la respuesta
         $constFinal = mb_convert_encoding($constFinal, 'UTF-8', 'ISO-8859-15');
-        $cestaTickets = $this->getConstante('0001','0000000001','0501');
+        $cestaTickets = $this->getConstante('0001','0000000001','0501', $codper);
         $data = [
             'codigo' => $personal->codper,
             'nombre' => $personal->nomper,
@@ -308,20 +308,39 @@ class sigespServices
         Necesita codigo de empleado, codigo de concepto (codcons) y codigo de nomina (codnom)
     */
 
-    public function getConstante($codemp='0001', $codcons, $codnom ){
+    public function getConstante($codemp='0001', $codcons, $codnom, $codper = null ){
 
-        // Buscar en la tabla histórica el último período con valor distinto de 0
-        $totalTickets = DB::connection('pgsql')->table('sno_hconstante')
-        ->select('codcons', 'nomcon', 'valcon')
+        $totalTickets = null;
+
+        // Buscar el monto MÁXIMO (global) en el último período cerrado
+        // Esto evita mostrar montos prorrateados o en cero de empleados específicos
+        $totalTickets = DB::connection('pgsql')->table('sno_hconstantepersonal')
+        ->select('codcons', DB::raw('MAX(moncon) as valcon'))
         ->where([
             ['codemp', $codemp],
             ['codcons', $codcons],
             ['codnom', $codnom],
         ])
-        ->where('valcon', '<>', 0)
+        ->where('moncon', '>', 0)
+        ->groupBy('codcons', 'anocur', 'codperi')
         ->orderBy('anocur', 'desc')
         ->orderBy('codperi', 'desc')
         ->first();
+
+        // Fallback a la tabla histórica global
+        if ($totalTickets == null) {
+            $totalTickets = DB::connection('pgsql')->table('sno_hconstante')
+            ->select('codcons', 'nomcon', 'valcon')
+            ->where([
+                ['codemp', $codemp],
+                ['codcons', $codcons],
+                ['codnom', $codnom],
+            ])
+            ->where('valcon', '<>', 0)
+            ->orderBy('anocur', 'desc')
+            ->orderBy('codperi', 'desc')
+            ->first();
+        }
 
         // Fallback a la tabla activa si no hay datos históricos
         if ($totalTickets == null) {
