@@ -776,7 +776,9 @@ class sigespServices
     public function detect_status_personal($codper){
         $status = DB::connection('pgsql')->table('sno_personalnomina')
         ->select('staper')
-        ->where('codper', $codper)->first();
+        ->where('codper', $codper)
+        ->orderBy('staper', 'asc') // Priorizar estados activos (1 o 2) sobre inactivos/egreso (3)
+        ->first();
         
         return $status;
     }
