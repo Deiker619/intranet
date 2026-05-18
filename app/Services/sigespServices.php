@@ -310,14 +310,31 @@ class sigespServices
 
     public function getConstante($codemp='0001', $codcons, $codnom ){
 
-        $totalTickets = DB::connection('pgsql')->table('sno_constante')
+        // Buscar en la tabla histórica el último período con valor distinto de 0
+        $totalTickets = DB::connection('pgsql')->table('sno_hconstante')
         ->select('codcons', 'nomcon', 'valcon')
         ->where([
             ['codemp', $codemp],
             ['codcons', $codcons],
             ['codnom', $codnom],
         ])
+        ->where('valcon', '<>', 0)
+        ->orderBy('anocur', 'desc')
+        ->orderBy('codperi', 'desc')
         ->first();
+
+        // Fallback a la tabla activa si no hay datos históricos
+        if ($totalTickets == null) {
+            $totalTickets = DB::connection('pgsql')->table('sno_constante')
+            ->select('codcons', 'nomcon', 'valcon')
+            ->where([
+                ['codemp', $codemp],
+                ['codcons', $codcons],
+                ['codnom', $codnom],
+            ])
+            ->first();
+        }
+
         return $totalTickets;
     }
 
