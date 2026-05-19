@@ -55,12 +55,12 @@ class sigespServices
     {
         Carbon::setLocale('es');
 
-        //para validar si mostrar o no remuneracion o cesta tickes
+        //Para validar si mostrar o no remuneracion o cesta tickes
         $options = [
             'remuneracion' => '$request->remuneracion,',
             'ticket' => '$request->ticket'
         ];
-        $codper=str_pad($cedula, 10, "0", STR_PAD_LEFT);//se completa con 10 ceros a la izquierda
+        $codper=str_pad($cedula, 10, "0", STR_PAD_LEFT);//Se completa con 10 ceros a la izquierda
         $periodoNom =env('NUMERO_PERIODO_NOMINA')??'040';
 
         $usigesp = DB::connection('pgsql')->table('sno_personal')
