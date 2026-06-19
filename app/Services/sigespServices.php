@@ -73,14 +73,18 @@ class sigespServices
             ], 404);
         }
 
-        $ultPeriodo = DB::connection('pgsql')->table('sno_hperiodo')
-            ->distinct('codperi')
-            ->select([
-                'codperi',
-            ])
-            ->orderBy('codperi', 'asc')
-            ->get()
-            ->last();
+        $ultPeriodo = DB::connection('pgsql')->table('sno_hpersonalnomina')
+            ->where('codemp', '0001')
+            ->where('codper', $codper)
+            ->orderBy('codperi', 'desc')
+            ->select('codperi')
+            ->first();
+
+        if ($ultPeriodo == null) {
+            return response()->json([
+                'message' => 'El usuario no se encuentra registrado en nómina, comuníquese con la unidad de recursos humanos'
+            ], 404);
+        }
 
         $numPeri = 0;
 
