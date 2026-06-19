@@ -4,10 +4,12 @@ namespace App\Services;
 
 class calculation_services{
     public function totalAsignaciones($data){
-         
          $totalAsignaciones = 0;
-         foreach($data->asignaciones as $asignacion){
-             $totalAsignaciones += $asignacion->valsal;
+         if (!is_object($data)) {
+             return $totalAsignaciones;
+         }
+         foreach ($data->asignaciones ?? [] as $asignacion) {
+             $totalAsignaciones += $asignacion->valsal ?? 0;
          }
          return $totalAsignaciones;
 
@@ -18,8 +20,11 @@ class calculation_services{
 
      public function totalDeducciones($data){
         $totalDeducciones = 0;
-        foreach($data->deducciones as $deduccion){
-            $totalDeducciones += $deduccion->valsal;
+        if (!is_object($data)) {
+            return $totalDeducciones;
+        }
+        foreach ($data->deducciones ?? [] as $deduccion) {
+            $totalDeducciones += $deduccion->valsal ?? 0;
         }
         return $totalDeducciones;
     }

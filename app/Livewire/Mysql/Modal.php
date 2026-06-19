@@ -33,9 +33,19 @@ class Modal extends Component
     #[On('post-created')]
     public function showModal($recibo_pago)
     {
+        $primera = $recibo_pago['original']['data']['primera-quincena'] ?? $recibo_pago['original']['data']['priPeriodo'] ?? null;
+        $segunda = $recibo_pago['original']['data']['segunda-quincena'] ?? $recibo_pago['original']['data']['segPeriodo'] ?? null;
+
+        // Si el empleado empezó en la 2da quincena, poner sus datos en primera-quincena
+        // para que la vista muestre la info personal y evitar duplicados
+        if (empty($primera) && !empty($segunda)) {
+            $primera = $segunda;
+            $segunda = null;
+        }
+
         $this->data = [
-            'primera-quincena' => json_decode(json_encode($recibo_pago['original']['data']['primera-quincena'] ?? $recibo_pago['original']['data']['priPeriodo'] ?? [])),
-            'segunda-quincena' => json_decode(json_encode($recibo_pago['original']['data']['segunda-quincena'] ?? $recibo_pago['original']['data']['segPeriodo'] ?? []))
+            'primera-quincena' => json_decode(json_encode($primera ?? [])),
+            'segunda-quincena' => json_decode(json_encode($segunda ?? [])),
         ];
         // dd($this->data);
         $totales = $this->calculateTotales();
