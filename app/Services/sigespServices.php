@@ -87,11 +87,11 @@ class sigespServices
         }
 
         $numPeri = 0;
-
         $personal = null;
+        $personal_inactivo = null;
 
         do {
-            $personal = DB::connection('pgsql')->table('sno_personal')
+            $personalTemp = DB::connection('pgsql')->table('sno_personal')
                 ->where('sno_personal.codemp', '0001')
                 ->where('sno_hpersonalnomina.codnom', '=', "$periodoNom$numPeri")
                 ->whereBetween('sno_personal.codper', [$codper, $codper]) 
@@ -200,8 +200,23 @@ class sigespServices
                 ->get()
                 ->first();
 
+            if ($personalTemp != null) {
+                if ($personalTemp->staper == 1 || $personalTemp->staper == 2) {
+                    $personal = $personalTemp;
+                    $numPeri += 1;
+                    break;
+                } else {
+                    $personal_inactivo = $personalTemp;
+                }
+            }
+
             $numPeri += 1;
         } while ($personal == null && $numPeri != 4);
+
+        if ($personal == null && $personal_inactivo != null) {
+            $personal = $personal_inactivo;
+            // Como no encontró uno activo, dejamos el inactivo para que muestre el error correcto.
+        }
 
         
         if ($personal == null) {
@@ -210,7 +225,7 @@ class sigespServices
             ], 423);
         }
 
-        if ($personal->staper != 1) {
+        if ($personal->staper != 1 && $personal->staper != 2) {
             return response()->json([
                 'message' => 'El usuario no se encuentra activo en nomina, comuníquese con la unidad de recursos humanos'
             ], 403);

@@ -24,7 +24,8 @@ class constanciapdf extends Controller
         $statusCode = $datos->getStatusCode();
         // Manejar errores
         if ($statusCode != 200) {
-            return 0;
+            $mensaje = json_decode($datos->getContent(), true)['message'] ?? 'Error al generar la constancia';
+            abort(403, $mensaje);
         }
         // Decodificar los datos
         $datos = json_decode(json_encode($datos->original['data']['data']), true);
