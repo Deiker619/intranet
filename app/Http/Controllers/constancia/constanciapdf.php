@@ -30,7 +30,7 @@ class constanciapdf extends Controller
         // Decodificar los datos
         $datos = json_decode(json_encode($datos->original['data']['data']), true);
         // Convertir el salario a letras
-        $datos['sueldo_integral'] = $this->salarioIntegralMensual($datos['sueldo_integral']);
+        // sueper ya es el salario mensual base, no requiere multiplicación
         $salario = $datos['sueldo_integral'] * 100 ?? 0; // Aqui se asegura el salario y la letra 
         $datos['salario_letras'] = strtoupper($this->convertirNumeroALetras($salario));
         // Generar el PDF

@@ -231,14 +231,6 @@ class sigespServices
             ], 403);
         }
 
-        // Ajuste puntual: usuario V-30.886.240 (YESID DANIEL BARCINILLA).
-        // Su salario mensual correcto es 130,00 Bs. Los períodos 014 (284,48)
-        // y 015 (65,65) de la nómina traen el sueldo integral incorrecto.
-        if ($cedula == '30886240') {
-            $personal->sueper = 130.00;
-            $personal->sueintper = 65.00; // 65 * 2 = 130,00 que se muestra en el PDF
-        }
-
         $numPeri -= 1;
 
         $constancia = DB::connection('pgsql')->table('sno_constanciatrabajo')
@@ -315,7 +307,7 @@ class sigespServices
             'fecing' => $date->format('d/m/Y'),
             'oficina' => $personal->desuniadm,
             'sueldo' => $personal->sueper,
-            'sueldo_integral' => $personal->sueintper,
+            'sueldo_integral' => $personal->sueper,
             'cesta_tikets' =>$cestaTickets,
             'expira' => $expira,
             'constancia' => $constFinal,
